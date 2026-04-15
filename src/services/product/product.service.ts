@@ -62,4 +62,21 @@ export class ProductService {
       total: result[1],
     };
   }
+
+  async getById(id: number): Promise<ProductEntity> {
+    const product = await this._productRepo.findOne({
+      where: {
+        id,
+      },
+      relations: {
+        categories: true,
+      },
+    });
+
+    if (!product) {
+      throw new Error('Produit introuvable');
+    }
+
+    return product;
+  }
 }
