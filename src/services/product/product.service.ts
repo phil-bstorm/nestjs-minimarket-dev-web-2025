@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { ProductListingQueryDto } from 'src/dtos/product.query.dto';
 import { CategoryEntity } from 'src/entities/category.entity';
 import { ProductEntity } from 'src/entities/product.entity';
-import { FindOptionsWhere, In, Repository } from 'typeorm';
+import { FindOptionsWhere, ILike, In, Repository } from 'typeorm';
 
 @Injectable()
 export class ProductService {
@@ -45,11 +45,14 @@ export class ProductService {
     const where: FindOptionsWhere<ProductEntity> = {};
 
     if (query.name) {
-      where.name = `%${query.name}%`;
+      where.name = ILike(`%${query.name}%`);
     }
 
     const result = await this._productRepo.findAndCount({
       where,
+      relations: {
+        categories: true,
+      },
       skip: query.offset,
       take: query.limit,
     });
