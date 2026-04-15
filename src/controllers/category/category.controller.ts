@@ -4,7 +4,7 @@ import { CategoryCreateDto } from 'src/dtos/category.form.dto';
 import {
   categoryCreateDtoToEntity,
   categoryEntityToDto,
-} from 'src/mappers/cateogry.mapper';
+} from 'src/mappers/category.mapper';
 import { CategoryService } from 'src/services/category/category.service';
 
 @Controller('category')

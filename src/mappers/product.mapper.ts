@@ -1,6 +1,6 @@
 import { ProductDto, ProductListingDto } from 'src/dtos/product.dto';
 import { ProductEntity } from 'src/entities/product.entity';
-import { categoryEntityToDto } from './cateogry.mapper';
+import { categoryEntityToDto } from './category.mapper';
 import { ProductCreateDto, ProductUpdateDto } from 'src/dtos/product.form.dto';
 
 export function productEntityToDetailsDto(entity: ProductEntity): ProductDto {
