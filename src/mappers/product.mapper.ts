@@ -1,6 +1,6 @@
 import { ProductDto, ProductListingDto } from 'src/dtos/product.dto';
 import { ProductEntity } from 'src/entities/product.entity';
-import { CategoryEntityToDto } from './cateogry.mapper';
+import { categoryEntityToDto } from './cateogry.mapper';
 import { ProductCreateDto, ProductUpdateDto } from 'src/dtos/product.form.dto';
 
 export function productEntityToDetailsDto(entity: ProductEntity): ProductDto {
@@ -9,7 +9,7 @@ export function productEntityToDetailsDto(entity: ProductEntity): ProductDto {
   dto.name = entity.name;
   dto.description = entity.description;
   dto.price = entity.price;
-  dto.categories = entity.categories.map(CategoryEntityToDto); // on transfome les CategoryEntity en CategoryDto
+  dto.categories = entity.categories.map(categoryEntityToDto); // on transfome les CategoryEntity en CategoryDto
   //   dto.categories = entity.categories.map((c) => {
   //     return CategoryEntityToDto(c);
   //   });
@@ -25,7 +25,7 @@ export function productEntityToListingDto(
   dto.id = entity.id;
   dto.name = entity.name;
   dto.price = entity.price;
-  dto.categories = entity.categories.map(CategoryEntityToDto);
+  dto.categories = entity.categories.map(categoryEntityToDto);
 
   return dto;
 }

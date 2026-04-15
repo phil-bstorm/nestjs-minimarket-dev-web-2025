@@ -6,7 +6,7 @@ import {
 import { CategoryEntity } from 'src/entities/category.entity';
 
 // Entity -> Dto
-export function CategoryEntityToDto(entity: CategoryEntity): CategoryDto {
+export function categoryEntityToDto(entity: CategoryEntity): CategoryDto {
   const dto = new CategoryDto();
   dto.id = entity.id;
   dto.name = entity.name;
@@ -15,7 +15,7 @@ export function CategoryEntityToDto(entity: CategoryEntity): CategoryDto {
 }
 
 // CreateDto -> Entity
-export function CategoryCreateDtoToEntity(
+export function categoryCreateDtoToEntity(
   dto: CategoryCreateDto,
 ): Partial<CategoryEntity> {
   const entity = new CategoryEntity();
@@ -26,7 +26,7 @@ export function CategoryCreateDtoToEntity(
 }
 
 // UpdateDto -> Entity
-export function CategoryUpdateDtoToEntity(
+export function categoryUpdateDtoToEntity(
   dto: CategoryUpdateDto,
 ): Partial<CategoryEntity> {
   const entity = new CategoryEntity();

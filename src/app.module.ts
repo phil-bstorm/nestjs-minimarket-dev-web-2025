@@ -4,6 +4,10 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProductEntity } from './entities/product.entity';
 import { CategoryEntity } from './entities/category.entity';
+import { ProductController } from './controllers/product/product.controller';
+import { ProductService } from './services/product/product.service';
+import { CategoryController } from './controllers/category/category.controller';
+import { CategoryService } from './services/category/category.service';
 
 @Module({
   imports: [
@@ -11,7 +15,7 @@ import { CategoryEntity } from './entities/category.entity';
       type: 'postgres',
       host: 'localhost',
       port: 5432,
-      database: 'mini-market',
+      database: 'minimarket',
       username: 'postgres',
       password: 'postgres',
       synchronize: true,
@@ -20,7 +24,7 @@ import { CategoryEntity } from './entities/category.entity';
     }),
     TypeOrmModule.forFeature([ProductEntity, CategoryEntity]),
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, ProductController, CategoryController],
+  providers: [AppService, ProductService, CategoryService],
 })
 export class AppModule {}
