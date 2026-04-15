@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { ProductListingQueryDto } from 'src/dtos/product.query.dto';
 import { CategoryEntity } from 'src/entities/category.entity';
 import { ProductEntity } from 'src/entities/product.entity';
-import { In, Repository } from 'typeorm';
+import { FindOptionsWhere, In, Repository } from 'typeorm';
 
 @Injectable()
 export class ProductService {
@@ -36,5 +37,26 @@ export class ProductService {
     const newP = this._productRepo.save(product);
 
     return newP;
+  }
+
+  async getAll(
+    query: ProductListingQueryDto,
+  ): Promise<{ data: ProductEntity[]; total: number }> {
+    const where: FindOptionsWhere<ProductEntity> = {};
+
+    if (query.name) {
+      where.name = `%${query.name}%`;
+    }
+
+    const result = await this._productRepo.findAndCount({
+      where,
+      skip: query.offset,
+      take: query.limit,
+    });
+
+    return {
+      data: result[0],
+      total: result[1],
+    };
   }
 }

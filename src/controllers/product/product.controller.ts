@@ -1,9 +1,11 @@
-import { Body, Controller, Post } from '@nestjs/common';
-import { ProductDto } from 'src/dtos/product.dto';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { ProductDto, ProductListingDto } from 'src/dtos/product.dto';
 import { ProductCreateDto } from 'src/dtos/product.form.dto';
+import { ProductListingQueryDto } from 'src/dtos/product.query.dto';
 import {
   productCreateDtoToEntity,
   productEntityToDetailsDto,
+  productEntityToListingDto,
 } from 'src/mappers/product.mapper';
 import { ProductService } from 'src/services/product/product.service';
 
@@ -20,5 +22,17 @@ export class ProductController {
 
     const productDto = productEntityToDetailsDto(newEntity);
     return { data: productDto };
+  }
+
+  @Get()
+  async getAll(
+    @Query() query: ProductListingQueryDto,
+  ): Promise<{ data: ProductListingDto[]; total: number }> {
+    const result = await this._productService.getAll(query);
+    const dto = result.data.map(productEntityToListingDto);
+    return {
+      data: dto,
+      total: result.total,
+    };
   }
 }
