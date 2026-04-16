@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { NextFunction, Response } from 'express';
-import { RequestSession, Session } from 'src/intefaces/session.interface';
+import { RequestSession, Session } from 'src/interfaces/session.interface';
 
 @Injectable()
 export class AuthenticationMiddleware implements NestMiddleware {

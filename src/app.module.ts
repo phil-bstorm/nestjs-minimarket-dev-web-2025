@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -12,6 +12,8 @@ import { AuthController } from './controllers/auth/auth.controller';
 import { UserService } from './services/user/user.service';
 import { ConfigModule } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
+import { UserEntity } from './entities/user.entity';
+import { AuthenticationMiddleware } from './middlewares/authentication/authentication.middleware';
 
 @Module({
   imports: [
@@ -32,9 +34,9 @@ import { JwtModule } from '@nestjs/jwt';
       password: 'postgres',
       synchronize: true,
       logging: true,
-      entities: [ProductEntity, CategoryEntity],
+      entities: [ProductEntity, CategoryEntity, UserEntity],
     }),
-    TypeOrmModule.forFeature([ProductEntity, CategoryEntity]),
+    TypeOrmModule.forFeature([ProductEntity, CategoryEntity, UserEntity]),
   ],
   controllers: [
     AppController,
@@ -44,4 +46,8 @@ import { JwtModule } from '@nestjs/jwt';
   ],
   providers: [AppService, ProductService, CategoryService, UserService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(AuthenticationMiddleware).forRoutes('*');
+  }
+}
