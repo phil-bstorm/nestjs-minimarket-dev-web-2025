@@ -2,7 +2,7 @@ import type { UUID } from 'crypto';
 import { UserRole } from 'src/enums/user-role.enum';
 import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity({ name: 'user' })
+@Entity({ name: 'users' })
 export class UserEntity {
   @PrimaryGeneratedColumn('uuid')
   id: UUID;

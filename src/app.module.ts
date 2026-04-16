@@ -14,6 +14,7 @@ import { ConfigModule } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { UserEntity } from './entities/user.entity';
 import { AuthenticationMiddleware } from './middlewares/authentication/authentication.middleware';
+import { UserController } from './controllers/user/user.controller';
 
 @Module({
   imports: [
@@ -43,6 +44,7 @@ import { AuthenticationMiddleware } from './middlewares/authentication/authentic
     ProductController,
     CategoryController,
     AuthController,
+    UserController,
   ],
   providers: [AppService, ProductService, CategoryService, UserService],
 })

@@ -4,6 +4,7 @@ import { UserEntity } from 'src/entities/user.entity';
 import { Repository } from 'typeorm';
 import bcrypt from 'bcrypt';
 import { LoginDto } from 'src/dtos/auth.form.dto';
+import { UUID } from 'crypto';
 
 @Injectable()
 export class UserService {
@@ -33,6 +34,18 @@ export class UserService {
 
     if (!bcrypt.compareSync(credentials.password, user.password)) {
       throw new Error('Invalid credential');
+    }
+
+    return user;
+  }
+
+  async getById(id: UUID): Promise<UserEntity> {
+    const user = await this._userRepo.findOne({
+      where: { id },
+    });
+
+    if (!user) {
+      throw new Error('Utilisateur introuvable');
     }
 
     return user;
