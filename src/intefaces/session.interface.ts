@@ -7,4 +7,4 @@ export interface Session {
   role: UserRole;
 }
 
-export type RequestSession = Request & { session: Session };
+export type RequestSession = Request & { session?: Session };
