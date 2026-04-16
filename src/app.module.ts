@@ -27,11 +27,11 @@ import { AuthenticationMiddleware } from './middlewares/authentication/authentic
     // Connexion à la base de donnée
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      database: 'minimarket',
-      username: 'postgres',
-      password: 'postgres',
+      host: process.env.PG_HOST,
+      port: +process.env.PG_PORT!,
+      database: process.env.PG_DATABASE,
+      username: process.env.PG_USER,
+      password: process.env.PG_PASSWORD,
       synchronize: true,
       logging: true,
       entities: [ProductEntity, CategoryEntity, UserEntity],
